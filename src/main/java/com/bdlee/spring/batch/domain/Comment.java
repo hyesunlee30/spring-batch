@@ -24,5 +24,6 @@ public class Comment  {
     private Post post;
 
     @Enumerated(EnumType.STRING)
+    @Builder.Default
     private Status status = Status.N;
 }

@@ -44,6 +44,7 @@ public class Post {
     private LocalDateTime appointmentTime;
 
     @Enumerated(EnumType.STRING)
+    @Builder.Default
     private Status status = Status.N;
 
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
