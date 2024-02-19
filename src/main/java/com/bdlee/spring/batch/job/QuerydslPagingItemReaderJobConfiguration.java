@@ -11,6 +11,9 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.item.ItemProcessor;
+import org.springframework.batch.item.database.JpaItemWriter;
+import org.springframework.batch.item.database.builder.JpaItemWriterBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -62,9 +65,9 @@ public class QuerydslPagingItemReaderJobConfiguration {
     @Bean
     public Step step() {
         return stepBuilderFactory.get("querydslPagingReaderStep")
-                .<Member, Post, Comment>chunk(chunkSize)
+                .<MemberProjection, Member>chunk(chunkSize)
                 .reader(reader())
-                .processor(processor())
+                //.processor(processor())
                 .writer(writer())
                 .build();
     }
@@ -80,9 +83,30 @@ public class QuerydslPagingItemReaderJobConfiguration {
                         JPAExpressions.select(count(comment.id)).from(comment)
                 ))
                 .from(member,post, comment)
-                .where(post.createdAt.eq(jobParameter.getTxDate()))
-                        .and(member.email.eq(post.email).or(member.email.eq(comment.email))))
+                .where(post.createdAt.eq(jobParameter.getTxDate().atStartOfDay())
+                .and(
+                        member.email.eq(post.email).or(member.email.eq(comment.email))
+                )
+                .and(
+                        member.active.eq(true)
+                ))
         );
     }
+
+    private ItemProcessor<MemberProjection, Member> processor() {
+
+        return item -> {
+            member.updateLanking(item.getPostCount() * 3L + item.getCommentCount() * 10L);
+        }
+        return null;
+    }
+
+    @Bean
+    public JpaItemWriter<Member> writer() {
+        return new JpaItemWriterBuilder<Member>()
+                .entityManagerFactory(emf)
+                .build();
+    }
+
 
 }

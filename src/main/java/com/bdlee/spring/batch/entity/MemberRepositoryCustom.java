@@ -23,20 +23,16 @@ public class MemberRepositoryCustom {
     private QComment comment = QComment.comment;
 
 
-
-    private Long postCount;
-
-    private Long commentCount;
-    List<MemberProjection> result = queryFactory
-            .select(
-                    Projections.bean(MemberProjection.class,
-                        member.email, member.ranking,
-                        JPAExpressions.select(count(post.id)).from(post),
-                        JPAExpressions.select(count(comment.id)).from(comment)
-                    )
-            )
-            .from(member,post, comment)
-            .where(member.email.eq(post.email).or(member.email.eq(comment.email)))
-            .fetch();
+//    List<MemberProjection> result = queryFactory
+//            .select(
+//                    Projections.bean(MemberProjection.class,
+//                        member.email, member.ranking,
+//                        JPAExpressions.select(count(post.id)).from(post),
+//                        JPAExpressions.select(count(comment.id)).from(comment)
+//                    )
+//            )
+//            .from(member,post, comment)
+//            .where(member.email.eq(post.email).or(member.email.eq(comment.email)))
+//            .fetch();
 
 }

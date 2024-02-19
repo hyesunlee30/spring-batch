@@ -47,4 +47,7 @@ public class Member {
         USER,ADMIN;
     }
 
+    public void updateLanking(Long ranking) {
+        this.ranking = ranking;
+    }
 }

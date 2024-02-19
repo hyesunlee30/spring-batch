@@ -1,7 +1,9 @@
 package com.bdlee.spring.batch.entity;
 
 import com.querydsl.core.annotations.QueryProjection;
+import lombok.Data;
 
+@Data
 public class MemberProjection {
     private String email;
     private Long ranking;
