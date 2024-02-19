@@ -1,8 +1,9 @@
-package com.bdlee.spring.batch.domain;
+package com.bdlee.spring.batch.entity;
 
 import lombok.*;
-
 import javax.persistence.*;
+
+import javax.persistence.Entity;
 
 @Entity
 @Getter

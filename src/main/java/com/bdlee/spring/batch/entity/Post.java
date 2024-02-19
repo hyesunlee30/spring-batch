@@ -1,4 +1,4 @@
-package com.bdlee.spring.batch.domain;
+package com.bdlee.spring.batch.entity;
 
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -8,32 +8,28 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-@Builder
+@Entity
 @Getter
+@Builder
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity
-public class Member {
+public class Post {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 50, unique = true)
+    @Column(nullable = false, length = 50)
+    private String title;
+
+    @Column(nullable = false, length = 3000)
+    private String contents;
+
     private String email;
-
-    @Enumerated(EnumType.STRING)
-    private Role role;
-
-    @Column(nullable = false, length = 50, unique = true)
-    private String nickname;
-
-    @Setter
-    private String password;
-
-    @ColumnDefault("0")
-    private Long ranking;
 
     @CreatedDate
     private LocalDateTime createdAt;
@@ -41,11 +37,18 @@ public class Member {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-    private boolean active;
+    private String appointment;
 
-    enum Role {
-        USER,ADMIN;
-    }
+    private LocalDateTime appointmentTime;
+
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    private Status status = Status.N;
+
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<Comment> comment = new ArrayList<>();
+
+
 
 }
-
