@@ -5,8 +5,7 @@ import lombok.Data;
 
 @Data
 public class MemberProjection {
-    private String email;
-    private Long ranking;
+    private Long id;
 
     private Long postCount;
 
@@ -15,9 +14,8 @@ public class MemberProjection {
     public MemberProjection(){};
 
     @QueryProjection
-    public MemberProjection(String email, Long ranking, Long postCount, Long commentCount){
-        this.email = email;
-        this.ranking = ranking;
+    public MemberProjection(Long id, Long postCount, Long commentCount){
+        this.id = id;
         this.postCount = postCount;
         this.commentCount = commentCount;
     }

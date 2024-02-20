@@ -35,6 +35,10 @@ public class Member {
     @ColumnDefault("0")
     private Long ranking;
 
+    @ColumnDefault("0")
+    private Long point;
+
+
     @CreatedDate
     private LocalDateTime createdAt;
 
@@ -47,7 +51,7 @@ public class Member {
         USER,ADMIN;
     }
 
-    public void updateLanking(Long ranking) {
-        this.ranking = ranking;
+    public void updatePoin(Long point) {
+        this.point = point;
     }
 }

@@ -100,7 +100,7 @@ public class QuerydslPagingItemReader<T> extends AbstractPagingItemReader<T> {
 
     @Override
     protected void doClose() throws Exception {
-        entityManager.close();
+        //entityManager.close();
         super.doClose();
     }
 }
