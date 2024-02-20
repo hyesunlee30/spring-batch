@@ -1,44 +1,22 @@
 spring:
-  profiles:
-    include:
-      - real-db
-    active: local
-  jpa:
-    hibernate:
-      ddl-auto: none
-    show-sql: false
-    properties:
-      hibernate.dialect: org.hibernate.dialect.MySQL57Dialect
-      hibernate.hbm2ddl.import_files_sql_extractor: org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor
-      hibernate.current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
-      hibernate.default_batch_fetch_size: ${chunkSize:100}
-    #      hibernate.jdbc.use_scrollable_resultset: true
-    open-in-view: false
-  batch:
-    job:
-      names: querydslPagingReaderJob #${job.name:NONE}
-
-logging.level:
-  org.springframework:
-#    jdbc.core.JdbcTemplate: DEBUG
-#    batch.item.database: DEBUG
----
-spring:
-  application:
-    name: batch
+  security:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/som # basic
+    url: jdbc:mariadb://localhost:3306/som
     username: root
-    password: 1234 # 1234
+    password: 1234
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MariaDBDialect
     generate-ddl: true
-    hibernate:
-      ddl-auto: update #update
-    show-sql: true
+    hibernate :
+      ddl-auto: update #컬럼 속성변경안 안먹히기때문에 create 하지말고 alter문 날리는 게 낫다
+    show_sql: true
+    properties:
+      hibernate.dialect: org.hibernate.dialect.MySQL57Dialect
+      hibernate.hbm2ddl.import_files_sql_extractor: org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor
+      hibernate.default_batch_fetch_size: ${chunkSize:1000}
+    open-in-view: false
+  spring.batch.job.names: ${job.name:NONE}
+  logging.level.org.springframework.batch.item.querydsl.reader: DEBUG
 
-logging:
-  level:
-    com.querydsl.sql: DEBUG
