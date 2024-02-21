@@ -18,14 +18,15 @@ spring:
       hibernate.default_batch_fetch_size: ${chunkSize:1000}
     open-in-view: false
 
-    batch:
-      jdbc:
-        initialize-schema: always
-#      job:
-#        names: ${job.name:NONE}
+  batch:
+    job:
+      names: ${job.name:NONE}
+    jdbc:
+      initialize-schema: ALWAYS
+
+#
+#logging:
+#  level:
+#    root: DEBUG
 
 
-
-logging:
-  level:
-    org.springframework: DEBUG

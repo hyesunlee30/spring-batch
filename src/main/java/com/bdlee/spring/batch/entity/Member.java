@@ -51,7 +51,10 @@ public class Member {
         USER,ADMIN;
     }
 
-    public void updatePoin(Long point) {
+    public void updatePoint(Long point) {
         this.point = point;
+    }
+    public void updateRanking(Long ranking) {
+        this.ranking = ranking;
     }
 }

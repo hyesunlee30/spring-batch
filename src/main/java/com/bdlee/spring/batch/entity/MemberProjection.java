@@ -3,8 +3,11 @@ package com.bdlee.spring.batch.entity;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 
+import javax.persistence.EntityManagerFactory;
+
 @Data
 public class MemberProjection {
+
     private Long id;
 
     private Long postCount;
@@ -18,6 +21,13 @@ public class MemberProjection {
         this.id = id;
         this.postCount = postCount;
         this.commentCount = commentCount;
+    }
+
+    public Member toMember(EntityManagerFactory emf) {
+
+        Member member = emf.createEntityManager().find(Member.class, this.getId());
+        member.updatePoint(this.postCount * 3L + this.commentCount * 10L);
+        return member;
     }
 }
 
