@@ -1,4 +1,4 @@
-package com.bdlee.spring.batch.entity;
+package com.bdlee.spring.batch.entity.som;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;

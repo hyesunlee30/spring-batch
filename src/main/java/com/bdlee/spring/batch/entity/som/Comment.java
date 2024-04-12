@@ -1,4 +1,4 @@
-package com.bdlee.spring.batch.entity;
+package com.bdlee.spring.batch.entity.som;
 
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;

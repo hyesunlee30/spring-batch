@@ -1,16 +1,13 @@
 package com.bdlee.spring.batch.job;
 
 
-import com.bdlee.spring.batch.entity.CommentRepository;
-import com.bdlee.spring.batch.entity.Member;
-import com.bdlee.spring.batch.entity.MemberRepository;
-import com.bdlee.spring.batch.entity.PostRepository;
+import com.bdlee.spring.batch.entity.som.CommentRepository;
+import com.bdlee.spring.batch.entity.som.Member;
+import com.bdlee.spring.batch.entity.som.MemberRepository;
+import com.bdlee.spring.batch.entity.som.PostRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobParameters;
-import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
@@ -19,7 +16,6 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.Scheduled;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
